@@ -755,7 +755,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ModelInfo"
+                  "$ref": "#/components/schemas/ModelsInfo"
                 }
               }
             }
@@ -2302,6 +2302,28 @@
           }
         },
         "description": "Information about a served model."
+      },
+      "ModelsInfo": {
+        "type": "object",
+        "required": [
+          "object",
+          "data"
+        ],
+        "properties": {
+          "object": {
+            "type": "string",
+            "example": "list",
+            "description": "Object type of the response, always `list`."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelInfo"
+            },
+            "description": "Models served by the endpoint."
+          }
+        },
+        "description": "List of the models served by the endpoint."
       },
       "OutputMessage": {
         "oneOf": [

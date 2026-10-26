@@ -47,8 +47,9 @@ isolated function testGetMetrics() returns error? {
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 isolated function testListModels() returns error? {
-    ModelInfo response = check tgiClient->listModels();
-    test:assertTrue(response.id.length() > 0);
+    ModelsInfo response = check tgiClient->listModels();
+    test:assertTrue(response.data.length() > 0);
+    test:assertTrue(response.data[0].id.length() > 0);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
@@ -105,5 +106,8 @@ isolated function testInvokeSagemaker() returns error? {
     SagemakerResponse response = check tgiClient->invokeSagemaker({
         messages: [{role: "user", content: "Hello"}]
     });
-    test:assertTrue(response is ChatCompletion|GenerateResponse|CompletionFinal);
+    if response !is ChatCompletion {
+        test:assertFail("Expected a ChatCompletion for a chat request");
+    }
+    test:assertTrue(response.choices.length() > 0);
 }

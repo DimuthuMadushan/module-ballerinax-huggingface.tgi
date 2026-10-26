@@ -61,6 +61,14 @@ public type CompletionComplete record {
     float[]? logprobs?;
 };
 
+# List of the models served by the endpoint
+public type ModelsInfo record {
+    # Models served by the endpoint
+    ModelInfo[] data;
+    # Object type of the response, always `list`
+    string 'object;
+};
+
 # Grammar constraint applied to the generated output
 public type GrammarType JsonGrammar|RegexGrammar|JsonSchemaGrammar;
 

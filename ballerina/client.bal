@@ -168,7 +168,7 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - Served model info 
-    remote isolated function listModels(map<string|string[]> headers = {}) returns ModelInfo|error {
+    remote isolated function listModels(map<string|string[]> headers = {}) returns ModelsInfo|error {
         string resourcePath = string `/v1/models`;
         return self.clientEp->get(resourcePath, headers);
     }

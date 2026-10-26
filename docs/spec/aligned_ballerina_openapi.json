@@ -762,7 +762,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ModelInfo"
+                                    "$ref": "#/components/schemas/ModelsInfo"
                                 }
                             }
                         }
@@ -1669,6 +1669,28 @@
                     }
                 },
                 "description": "Information about a served model"
+            },
+            "ModelsInfo": {
+                "required": [
+                    "data",
+                    "object"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "description": "Models served by the endpoint",
+                        "items": {
+                            "$ref": "#/components/schemas/ModelInfo"
+                        }
+                    },
+                    "object": {
+                        "type": "string",
+                        "description": "Object type of the response, always `list`",
+                        "example": "list"
+                    }
+                },
+                "description": "List of the models served by the endpoint"
             },
             "ToolChoiceFunction": {
                 "required": [

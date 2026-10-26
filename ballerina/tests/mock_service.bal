@@ -61,12 +61,17 @@ service / on ep0 {
     # Get model info
     #
     # + return - Served model info
-    resource function get v1/models() returns ModelInfo {
+    resource function get v1/models() returns ModelsInfo {
         return {
-            id: "bigscience/blomm-560m",
-            'object: "model",
-            created: 1727000000,
-            ownedBy: "bigscience"
+            'object: "list",
+            data: [
+                {
+                    id: "bigscience/blomm-560m",
+                    'object: "model",
+                    created: 1727000000,
+                    ownedBy: "bigscience"
+                }
+            ]
         };
     }
 

@@ -15,7 +15,7 @@ These changes are done in order to improve the overall usability, and as workaro
 
 3. Rewrote `info.description` as a short plain-text summary of what the connector does, since it becomes the `Client` class documentation. The change was made in the original spec `docs/spec/openapi.json`.
 
-4. Added missing descriptions to 54 schemas, 137 properties, 8 request bodies and 12 operations (summary and description), authored in `docs/spec/description-decisions.json` and applied with `tooling/apply_descriptions.py`. This keeps `bal build` free of `undocumented field` warnings. The change was made in the original spec `docs/spec/openapi.json`.
+4. Added missing descriptions to 54 schemas, 137 properties, 8 request bodies and 12 operations (summary and description); the filled text is listed in `docs/spec/description-decisions.json`. This keeps `bal build` free of `undocumented field` warnings. The change was made in the original spec `docs/spec/openapi.json`.
 
 5. Made the operation summaries of `POST /v1/chat/completions` ("Create a chat completion") and `POST /v1/completions` ("Create a text completion") distinct; both were "Generate tokens", as was `POST /generate`. The change was made in the original spec `docs/spec/openapi.json`.
 
@@ -24,6 +24,8 @@ These changes are done in order to improve the overall usability, and as workaro
 7. Replaced the `allOf` member `$ref: MessageBody` (a `oneOf` of content or tool calls) in the `Message` schema with an inline object holding optional `content` and `tool_calls` properties, because a record cannot include a union type. The change was made in the original spec `docs/spec/openapi.json`.
 
 8. Renamed the operations and the union member schemas through `ai-mappings.json`. Operations: `compat_generate` to `generateCompat`, `get_chat_tokenize` to `tokenizeChat`, `generate` to `generateTokens`, `generate_stream` to `streamTokens`, `health` to `checkHealth`, `get_model_info` to `getInfo`, `sagemaker_compatibility` to `invokeSagemaker`, `metrics` to `getMetrics`, `tokenize` to `tokenizeText`, `chat_completions` to `createChatCompletion`, `completions` to `createCompletion`, `openai_get_model_info` to `listModels`. Schemas: the generated `*OneOf*` names became `JsonGrammar`, `RegexGrammar`, `JsonSchemaGrammar`, `MessageContentBody`, `MessageToolCallsBody`, `TextMessageChunk`, `ImageUrlMessageChunk`, `MessageContentText`, `MessageContentChunks`, `ToolChoiceAuto`, `ToolChoiceNone`, `ToolChoiceRequired`, `ToolChoiceFunction`, `CompletionChunk`, `CompletionFinalResponse`, `MessageContentFields` and `MessageRoleFields`.
+
+9. Added a `ModelsInfo` schema (`object` plus a `data` array of `ModelInfo`) and made it the `200` response of `GET /v1/models`, which the original spec declared as a single `ModelInfo` although the server returns the OpenAI-style list wrapper. The change was made in the original spec `docs/spec/openapi.json`, and also made by hand in `docs/spec/aligned_ballerina_openapi.json`; re-apply it there after a re-align if alignment does not carry it.
 
 ## OpenAPI cli command
 

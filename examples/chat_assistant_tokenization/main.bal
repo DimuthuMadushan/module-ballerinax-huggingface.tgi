@@ -12,8 +12,11 @@ public function main() returns error? {
     tgi:Client tgiClient = check new ({auth: {token}}, serviceUrl);
 
     // Step 1: Find the model served by the endpoint
-    tgi:ModelInfo model = check tgiClient->listModels();
-    io:println("Serving model: ", model.id);
+    tgi:ModelsInfo models = check tgiClient->listModels();
+    if models.data.length() == 0 {
+        return error("The endpoint serves no model");
+    }
+    io:println("Serving model: ", models.data[0].id);
 
     // Step 2: Apply the chat template and count the prompt tokens
     tgi:Message[] messages = [{role: "user", content: question}];
